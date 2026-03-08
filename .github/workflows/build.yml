@@ -16,9 +16,6 @@ jobs:
       - name: Build Forge
         run: |
           chmod +x gradlew
-          - name: Build Forge
-        run: |
-          chmod +x gradlew
           mkdir -p ~/.gradle/init.d
           cat > ~/.gradle/init.d/mirrors.gradle << 'EOF'
           allprojects {
