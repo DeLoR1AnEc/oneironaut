@@ -16,6 +16,47 @@ jobs:
       - name: Build Forge
         run: |
           chmod +x gradlew
+          - name: Build Forge
+        run: |
+          chmod +x gradlew
+          mkdir -p ~/.gradle/init.d
+          cat > ~/.gradle/init.d/mirrors.gradle << 'EOF'
+          allprojects {
+              repositories {
+                  maven {
+                      name = 'Ladysnake'
+                      url = 'https://maven.ladysnake.org/releases'
+                      content {
+                          includeGroup 'dev.onyxstudios.cardinal-components-api'
+                      }
+                  }
+                  maven {
+                      name = 'HexxyMedia'
+                      url = 'https://maven.hexxy.media'
+                      content {
+                          includeGroup 'ram.talia.hexal'
+                          includeGroup 'ram.talia.moreiotas'
+                      }
+                  }
+                  maven {
+                      name = 'BlameJared'
+                      url = 'https://maven.blamejared.com'
+                      content {
+                          includeGroup 'at.petra-k.paucal'
+                          includeGroup 'at.petra-k.hexcasting'
+                          includeGroup 'vazkii.patchouli'
+                      }
+                  }
+                  maven {
+                      name = 'DevOS'
+                      url = 'https://mvn.devos.one/snapshots/'
+                      content {
+                          includeGroup 'io.github.tropheusj'
+                      }
+                  }
+              }
+          }
+          EOF
           ./gradlew :forge:build
       - name: Upload artifact
         uses: actions/upload-artifact@v4
